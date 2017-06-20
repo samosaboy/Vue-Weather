@@ -1,7 +1,7 @@
 {
-  "name": "vuespotify",
+  "name": "vueweather",
   "version": "1.0.0",
-  "description": "VueJS using Spotify API",
+  "description": "Weather Search with Vue",
   "author": "NikunjVarshney <varshney.nikunj@gmail.com>",
   "private": true,
   "scripts": {
