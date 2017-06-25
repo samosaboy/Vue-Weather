@@ -10,6 +10,7 @@ var path = require('path')
 var express = require('express')
 var webpack = require('webpack')
 var proxyMiddleware = require('http-proxy-middleware')
+var cors = require('cors')
 var webpackConfig = process.env.NODE_ENV === 'testing'
   ? require('./webpack.prod.conf')
   : require('./webpack.dev.conf')
@@ -34,9 +35,6 @@ var hotMiddleware = require('webpack-hot-middleware')(compiler, {
   log: () => {}
 })
 
-var cors = require('cors')
-app.use(cors())
-
 // force page reload when html-webpack-plugin template changes
 compiler.plugin('compilation', function (compilation) {
   compilation.plugin('html-webpack-plugin-after-emit', function (data, cb) {
@@ -51,7 +49,8 @@ Object.keys(proxyTable).forEach(function (context) {
   if (typeof options === 'string') {
     options = { target: options }
   }
-  app.use(proxyMiddleware(options.filter || context, options))
+  app.use(proxyMiddleware(options))
+  // app.use(proxyMiddleware(options.filter || context, options))
 })
 
 // handle fallback for HTML5 history API
@@ -93,3 +92,16 @@ module.exports = {
     server.close()
   }
 }
+
+// //cors
+// app.use(function(req, res, next) {
+//   res.header("Access-Control-Allow-Credentials", "true")
+//   res.header("Access-Control-Allow-Origin", "*")
+//   res.header("Access-Control-Allow-Headers", "X-Requested-With")
+//   res.header("Access-Control-Allow-Headers", "Content-Type")
+//   res.header("Access-Control-Allow-Headers", "Authorization")
+//   res.header("Access-Control-Allow-Methods", "PUT, GET, POST, DELETE, OPTIONS")
+//   res.json({ msg: 'Test' })
+//   next();
+// });
+// app.use(cors({withCredentials: true, credentials: true, origins: 'http://localhost:8080'}))
