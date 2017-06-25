@@ -1,15 +1,16 @@
 <template lang="pug">
-  div
-    User
+  .mainapp
+    .search
+      Search
 </template>
 
 <script>
-  import User from './User'
+  import Search from './Search'
 
   export default {
-    name: 'hello',
+    name: 'vue-weather',
     components: {
-      User,
+      Search,
     },
     data() {
       return {
@@ -19,5 +20,14 @@
   }
 </script>
 
-<style scoped>
+<style lang='scss' scoped>
+  .mainapp {
+    background: #6534FF;
+    position: relative;
+    height: 100%;
+  }
+  .search {
+    width: 80vw;
+    margin: 0 auto;
+  }
 </style>

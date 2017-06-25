@@ -8,6 +8,6 @@ export default {
 }
 </script>
 
-<style>
-  /*@import 'assets/css/main.sass';*/
+<style lang='scss'>
+  @import 'assets/css/main.sass';
 </style>

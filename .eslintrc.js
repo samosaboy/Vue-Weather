@@ -44,6 +44,5 @@ module.exports = {
     "no-param-reassign": 0,
     "linebreak-style": 0,
     "no-return-assign": 0,
-     "max-len": ["error", 120],
   }
 }
