@@ -1,62 +1,56 @@
 <template lang="pug">
   div
-    h2 {{ showme }}
+    h2 Show me the weather for
     input(v-model.lazy='city', placeholder='Enter a city', value='city', @change='getWeather()')
+    pre {{ item }}
 </template>
 
 <script>
+import { mapState, mapGetters } from 'vuex'
+import _ from 'lodash'
+
 export default {
   name: 'Search',
   data() {
     return {
       city: '',
-      item: {},
-      weather: {
-        today: [],
-        allDays: [],
-      },
-      showme: 'Show me the weather for',
     }
   },
   methods: {
     getWeather() {
-      this.$http.get(`weather?q=${this.city}`)
-        .then((r) => {
-          this.item = r.body
-          if (r.body.weather.length === 1) {
-            this.weather.today = r.body.weather[0]
-          } else if (r.body.weather.length > 1) {
-            this.weather.AllDays = r.body.weather
-          }
-        })
-        .catch((e) => {
-          console.log(e)
-        })
+      this.$store.dispatch('GET_WEATHER', this.city)
     },
+  },
+  computed: {
+    ...mapGetters([
+      'item',
+      'country',
+    ]),
   },
 }
 </script>
 
 <style lang='scss' scoped>
-  div {
+div {
+  color: white;
+}
+
+h2 {
+  font-weight: 200;
+  font-size: 24pt;
+}
+
+input {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 80pt;
+  font-weight: 200;
+  width: 100%;
+
+  &::placeholder {
     color: white;
   }
-
-  h2 {
-    font-weight: 200;
-    font-size: 24pt;
-  }
-
-  input {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 80pt;
-    font-weight: 200;
-    width: 100%;
-
-    &::placeholder {
-      color: white;
-    }
-  }
+}
 </style>
+

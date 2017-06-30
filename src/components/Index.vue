@@ -24,7 +24,7 @@
   .mainapp {
     background: #6534FF;
     position: relative;
-    height: 100%;
+    height: 100vh;
   }
   .search {
     width: 80vw;
