@@ -1,16 +1,17 @@
 <template lang="pug">
-  .mainapp
-    .search
-      Search
+  .background
+    .container-fluid
+      .row.content
+        overlay.col-xs-12
+    span test
 </template>
 
 <script>
-  import Search from './Search'
+  import overlay from './overlay'
 
   export default {
-    name: 'vue-weather',
     components: {
-      Search,
+      overlay,
     },
     data() {
       return {
@@ -21,13 +22,12 @@
 </script>
 
 <style lang='scss' scoped>
-  .mainapp {
+  .background {
     background: #6534FF;
     position: relative;
     height: 100vh;
   }
-  .search {
-    width: 80vw;
-    margin: 0 auto;
+  .content {
+    padding: 10% 0 0 0;
   }
 </style>

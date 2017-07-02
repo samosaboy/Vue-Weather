@@ -1,8 +1,11 @@
 <template lang="pug">
   div
-    h2 Show me the weather for
-    input(v-model.lazy='city', placeholder='Enter a city', value='city', @change='getWeather()')
-    pre {{ item }}
+    input(
+      v-model.lazy='city',
+      placeholder='Enter a city',
+      value='city',
+      @change='getWeather()'
+    )
 </template>
 
 <script>
@@ -10,7 +13,6 @@ import { mapState, mapGetters } from 'vuex'
 import _ from 'lodash'
 
 export default {
-  name: 'Search',
   data() {
     return {
       city: '',
@@ -50,6 +52,11 @@ input {
 
   &::placeholder {
     color: white;
+  }
+
+  &:focus {
+    border: none;
+    outline: 0;
   }
 }
 </style>

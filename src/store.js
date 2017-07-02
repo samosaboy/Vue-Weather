@@ -16,27 +16,29 @@ const store = new Vuex.Store({
   },
   actions: {
     GET_WEATHER(state, vm) {
-      state.commit('SET_CITY', vm)
-      axios.get(`weather?q=${vm}`)
-        .then((r) => {
-          const data = r.data
-          state.commit('SET_ITEM', data)
-          state.commit('SET_COUNTRY', data.sys.country)
-        })
-        .catch((e) => {
-          console.log(e)
-        })
+      if (vm) {
+        state.commit('SET_CITY', vm)
+        axios.get(`forecast?q=${vm}`)
+          .then((r) => {
+            const data = r.data
+            state.commit('SET_ITEM', data)
+            state.commit('SET_COUNTRY', data.city.country)
+          })
+          .catch((e) => {
+            console.log(e)
+          })
+      }
     },
   },
   mutations: {
     SET_CITY(state, item) {
-      state.city = item
+      state.city.push(item)
     },
     SET_COUNTRY(state, item) {
-      state.country = item
+      state.country.push(item)
     },
     SET_ITEM(state, item) {
-      state.item = item
+      state.item.push(item)
     },
   },
   state: {
@@ -45,9 +47,9 @@ const store = new Vuex.Store({
       so you can enter that response by entering the city + country
       into the moment timezone. CA = Canada, US = America, etc.
     */
-    city: '',
-    country: '',
-    item: {},
+    city: [],
+    country: [],
+    item: [],
   },
 })
 
