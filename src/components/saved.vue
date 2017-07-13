@@ -2,21 +2,25 @@
   div
     span Saved Places
     ul
-      li(v-for="citynames in city") {{ citynames }}
+      li(v-for="cities in item")
+        | {{ cities.city }}
+        button(@click='remove(cities)') Remove
 </template>
 
 <script>
   import { mapGetters } from 'vuex'
+  import _ from 'lodash'
 
   export default {
-    data() {
-      return {}
-    },
     computed: {
       ...mapGetters([
         'item',
-        'city',
       ]),
+    },
+    methods: {
+      remove(city) {
+        this.$store.dispatch('REMOVE_ITEM', city)
+      },
     },
   }
 </script>

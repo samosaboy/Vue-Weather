@@ -3,7 +3,6 @@
     .container-fluid
       .row.content
         overlay.col-xs-12
-    span test
 </template>
 
 <script>

@@ -22,7 +22,6 @@
     computed: {
       ...mapGetters([
         'item',
-        'country',
       ]),
     },
   }
