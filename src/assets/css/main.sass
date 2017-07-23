@@ -1,19 +1,64 @@
-@import './imports'
-
-$input-border: rgba(255, 255, 255, 0.3)
-$defaultColour: rgba(255, 255, 255, 1.0)
+@import './_imports'
 
 body
   font-family: 'Open Sans', sans-serif
-  font-weight: 600
-  color: $defaultColour
+  color: $font-color
   padding: 0
   margin: 0
 
 body, html
-  width: 100%
   height: 100%
+  width: 100%
 
 h1, h2, h3, h4, h5
   padding: 0
   margin: 0
+
+button
+  display: inline-block
+  background: none
+  border: none
+  outline: 0
+
+li
+  padding: 0
+  margin: 0
+  vertical-align: middle
+
+.component
+  border-radius: 16px
+  padding: 2em
+  width: 100%
+
+.background
+  background-image: $background-gradient
+  position: relative
+  height: 100%
+
+.main-body
+  background-image: $mainbody-gradient
+  min-height: 40vh
+  max-height: 60vh
+
+.locationselect
+  background-image: linear-gradient(-20deg, #b721ff 0%, #21d4fd 100%)
+  margin-top: 1em
+
+.overlay
+  background: $background-color-light
+  margin-bottom: 1em
+
+.blur
+  width: 100%
+  height: 100%
+  background-size:cover
+  -webkit-filter: blur(4px)
+  -moz-filter: blur(4px)
+  -ms-filter: blur(4px)
+  -o-filter: blur(4px)
+  filter: blur(4px)
+
+.shadow
+  -webkit-box-shadow: $shadow-details
+  -moz-box-shadow: $shadow-details
+  box-shadow: $shadow-details

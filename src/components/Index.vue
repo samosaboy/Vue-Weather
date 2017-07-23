@@ -1,32 +1,49 @@
 <template lang="pug">
   .background
-    .container-fluid
-      .row.content
-        overlay.col-xs-12
+    buttons
+    .container
+      transition(name='fade')
+        overlay(v-if='overlayState')
+      .row.main-body.component.shadow
+        maincomponent
+      locations
 </template>
 
 <script>
-  import overlay from './overlay'
+  import { mapGetters } from 'vuex'
+  import maincomponent from './main-body/main'
+  import locations from './locations/locations'
+  import overlay from './search/overlay'
+  import buttons from './search/buttons'
 
   export default {
     components: {
       overlay,
+      buttons,
+      maincomponent,
+      locations,
     },
     data() {
       return {
-        msg: 'Welcome to Your Vue.js App',
+        search: false,
       }
+    },
+    computed: {
+      ...mapGetters([
+        'overlayState',
+      ]),
     },
   }
 </script>
 
 <style lang='scss' scoped>
-  .background {
-    background: #6534FF;
-    position: relative;
-    height: 100vh;
+
+  .fade-enter-active, .fade-leave-active {
+    transition: opacity .5s
   }
-  .content {
-    padding: 10% 0 0 0;
+
+  .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+    opacity: 0
   }
+
 </style>

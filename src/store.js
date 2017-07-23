@@ -13,10 +13,12 @@ const store = new Vuex.Store({
   strict: true,
   getters: {
     item: state => state.item,
+    overlayState: state => state.overlayState,
+    selected: state => state.selected,
   },
   actions: {
-    GET_WEATHER(state, vm) {
-      if (vm) {
+    GET_WEATHER({ commit, state }, vm) {
+      if (!_.includes(_.map(state.item, o => o.city), vm)) {
         axios.get(`forecast?q=${vm}`)
           .then((r) => {
             const data = r.data
@@ -26,49 +28,44 @@ const store = new Vuex.Store({
               coord: data.city.coord,
               weather: data.list,
             })
-            state.commit('SET_ITEM', location)
+            commit('SET_ITEM', location)
           })
           .catch((e) => {
             console.log(e)
           })
       }
     },
-    REMOVE_ITEM(state, vm) {
-      state.commit('REMOVE_CITY', vm)
+    REMOVE_ITEM({ commit }, vm) {
+      commit('REMOVE_CITY', vm)
+    },
+    SHOW_SELECTED({ commit, state }, vm) {
+      commit('FILTER_CITY',
+        _.filter(state.item, vm))
     },
   },
   mutations: {
     SET_ITEM(state, item) {
-      if (!_.includes(_.map(state.item, o => o.city), item.city)) {
-        state.item.push(item)
-      }
+      state.item.push(item)
     },
     REMOVE_CITY(state, item) {
       _.forEach(state.item, (location) => {
-        if (item.city === location.city) {
-          const itemIndex = state.item.indexOf(item)
-          state.item.splice(itemIndex, 1)
+        if (location.city === item.city) {
+          const index = state.item.indexOf(item)
+          state.item.splice(index, 1)
         }
       })
     },
+    SET_OVERLAY(state, c) {
+      state.overlayState = c
+    },
+    FILTER_CITY(state, item) {
+      state.selected = item
+    },
   },
   state: {
-    /*
-      When you enter the city in the component, it returns the country in API response
-      so you can enter that response by entering the city + country
-      into the moment timezone. CA = Canada, US = America, etc.
-      item: [
-        { city: '', country: '', weather: '', time: '' },
-        { city: '', country: '', weather: '', time: '' },
-        { city: '', country: '', weather: '', time: '' },
-        { city: '', country: '', weather: '', time: '' }
-      ]
-
-      You also need to return the city as the network request city, and not the user input city
-      i.e. if User inputs KJDASDASD and it goes to Paris, return Paris instead!
-      New array must be uniq ! DeepClone the array and uniq it before pushing it into state.item
-    */
     item: [],
+    overlayState: false,
+    selected: {},
   },
 })
 
